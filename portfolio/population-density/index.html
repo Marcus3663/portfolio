@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8 />
+	<title>US Population Density</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: #f0d3e5;
+			font-family: 'Open Sans', sans-serif;
+			font-weight: 400;
+			color: #d142d6;
+		}
+
+		section{
+			width: 960px;
+			/* width: 80%; */
+			margin: 20px auto;
+		}
+
+		h1 {
+			font-family: 'Open Sans', sans-serif;
+			font-weight: 300;
+			font-size: 2.5em;
+			/* The em unit. 3x the current size */
+			letter-spacing: .04em;
+			text-transform: uppercase;
+		}
+
+		h2 {
+			font-family: 'Open Sans', sans-serif;
+			font-weight: 700;
+			color: purple;
+			font-size: 1.1em;
+			letter-spacing: .04em;
+		}
+
+		p {
+			font-size: 1em;
+			line-height: 1.5em;
+		}
+
+		a {
+			color: #740f88;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		ul {
+			padding-left: 20px;
+		}
+
+		li {
+			margin: 10px 0
+		}
+
+		#map {
+			width: 100%;
+			margin: 0px auto;
+		}
+
+		.max-width-img {
+			width: 100%;
+		}
+
+		/* add custom style class here */
+	</style>
+</head>
+
+<body>
+
+	<div id='map'>
+		<!-- Add your custom HTML here -->
+		<img src="graphics/County_Population_Density_1200.png" class="max-width-img" alt="Map of US Population Density">
+	</div>
+    <a href="graphics/County_Population_Density_8000.png">Link to high resolution map</a>
+
+
+    <a href="geojson/Michigan_County_Population.geojson">Link to Michigan GeoJSON</a>
+	<section>
+
+		<!-- This is an HTML comment. Find the comments below and follow the instructions. -->
+
+		<h1>US Population Density</h1>
+
+		<!-- Add you information below -->
+		<h2>Authored by: Marcus Rodriguez</h2>
+		<p>The map was made in QGIS 3.20.3 on Windows11 and used data from <a href="https://www.ers.usda.gov/data-products/county-level-data-sets/download-data/" target="blank">the US Department of Agriculture website</a> as well as <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html" target="blank">the US Census Bureau website</a>. 
+            The data used to create the map include population densities measured in people per square miles in which I joined a csv file onto a US county layer in QGIS in order to obtain the measurements. Also, I used the coordinate reference system North America Equal Area (EPSG: 102008) for the county population maps and used the Coordinate Reference System WGS84 (EPSG: 4326) for my GeoJSONof Michigan with a precision of 4 that includes the state's population density in people per square miles and the county names.   </p>
+
+		<ul>
+			<!-- Change the following contacts to your personal brand, whatever you want it to be! -->
+			<li>See my projects on GitHub: <a href="https://github.com/Marcus3663"> Marcus3663</a></li>
+			
+		</ul>
+	</section>
+
+</body>
+
+</html>
+

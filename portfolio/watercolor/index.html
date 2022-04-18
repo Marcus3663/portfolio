@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<!-- Use the HTML and CSS you developed in module 01 to fill out this template.-->
+
+<head>
+	<meta charset=utf-8 />
+	<title>Lab 04 Work Template</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<link rel='icon' href='https://newmapsplus.github.io/favicon.ico' type='image/x-icon' />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" />
+	<!-- Check if this is latest version of Leaflet CSS. -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+	<!-- Add links to external css stylesheets. -->
+	<link href="#" rel="stylesheet" />
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: #b0bfe0;
+			font-family: 'Lato', sans-serif;
+			/* change made here */
+			font-weight: 300;
+			/* addition here */
+			color: #910fac;
+			font-size: 100%;
+		}
+
+		header,
+		section,
+		footer {
+			width: 80%;
+			margin: 10px auto;
+		}
+
+		footer {
+			background: #b0bfe0
+		}
+
+		h1 {
+			font-size: 2em;
+			font-weight: 900;
+			/* addition here */
+			letter-spacing: .04em;
+		}
+
+		h2 {
+			text-align: center;
+			font-size: 1.5em;
+			font-weight: bold;
+			/* addition here */
+			letter-spacing: .04em;
+		}
+
+		p {
+			font-size: 1.1em;
+			line-height: 1.5em;
+		}
+
+		a {
+			color: #FFFFFF;
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		ul {
+			padding-left: 20px;
+		}
+
+		li {
+			margin: 10px 0;
+		}
+
+		hr {
+			margin: 20px 0;
+			border: 0;
+			height: 1px;
+			background: #FFFFFF;
+		}
+
+		.caption {
+			margin: 0 0 20px 0;
+			display: block;
+		}
+
+		#map {
+			width: 100%;
+			height: 540px;
+			margin: 10px auto;
+			border: 2px solid #FFFFFF;
+		}
+
+		.highlight {
+			color: #CF142B;
+			font-weight: bold;
+		}
+
+		.img-fill {
+			width: 100%;
+			height: auto;
+			margin: 10px 0;
+		}
+
+		/* Use float property to make two-column layout */
+		.first-column {
+			float: left;
+			width: 49%;
+			padding-right: 2%;
+		}
+
+		.second-column {
+			float: left;
+			width: 49%;
+		}
+
+		/* Clear floats after columns */
+		.row::after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		@media screen and (max-width: 900px) {
+
+			.first-column,
+			.second-column {
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1>Population Densities</h1>
+	</header>
+
+	<section>
+		<div id='map'></div>
+	</section>
+
+
+	<section>
+
+		<button id='map-cities'>Click Me</button>
+
+		<h2>Look at those popups!</h2>
+
+		<p> The world is full of many different cities that each have their own area and populations. When it comes to
+			population density, Manila in the Phillipines takes the top spot.
+			However, population density may not always be a strong indicator of a city's population or area. For
+			instance, Vatican City has one of the smallest areas for cities in the world,
+			but has a larger population density than Lexington due to its population size. Thus, one has to be careful
+			when analyzing population densities to make sure all variables are taken
+			into consideration.
+		</p>
+
+		<ul>
+			<li>See my projects on GitHub: <a href="https://github.com/marcus3663">Marcus3663</a></li>
+			<li>Coordinate Data: <a href="https://studio.mapbox.com/">Mapbox Studio</a> </li>
+			<li>Population Data: <a href="https://worldpopulationreview.com/countries/cities/cuba">World Population
+					Review</a> </li>
+			<li>Area Data: <a
+					href="https://en.wikipedia.org/wiki/List_of_cities_proper_by_population_density">Wikipedia</a> </li>
+			<li>Map Data: <a href="http://leafletjs.com/">Leaflet</a> </li>
+		</ul>
+	</section>
+
+	<footer>
+		<p>Map authored by Marcus Rodriguez</p>
+		<hr>
+
+		<a href="https://newmapsplus.github.io">
+			<img src="https://newmapsplus.github.io/assets/graphics/logo-2018-nmp-75px-h-gray.png"
+				alt="University of Kentucky Geography">
+		</a>
+
+		<a href="https://uky-gis.github.io">
+			<img src="https://newmapsplus.github.io/assets/graphics/logo-2018-geography-75px-h.png"
+				alt="University of Kentucky Geography">
+		</a>
+	</footer>
+
+	<!-- Check if this is latest version of Leaflet JS. -->
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+	<script>
+		// map options
+		var options = {
+			center: [20, -20],
+			zoom: 2
+		}
+
+		// creates the Leaflet map
+		var map = L.map('map', options);
+
+		// Get basemap URL from Leaflet Providers
+		var basemap_url = 'http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}'
+
+		// Get basemap attributes from Leaflet Providers
+		var basemap_attributes = {
+			attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+			subdomains: 'abcd',
+			minZoom: 1,
+			maxZoom: 16,
+			ext: 'png'
+		}
+
+		// requests some map tiles
+		var tiles = L.tileLayer(basemap_url, basemap_attributes);
+
+
+
+		// adds these tiles to the map
+		map.addLayer(tiles);
+
+		//    var cities = // write 3 city names as Strings within an array
+		var cities = ["Manila", "Lexington", "Vatican City"];
+		//    var cityCoords = // write a two-dimensional array of the coordinates for each city
+		var cityCoords = [[14.602, 120.978], [38.036, -84.485], [42.097, 11.777]];
+		//    var cityPops = // write the populations of the 3 cities as Numbers within an array
+		var cityPops = [1780148, 322570, 453]
+		//    var cityAreas = // write the areas of the 3 cities as Numbers within an array
+		var cityAreas = [16.56, 283.64, 0.19]
+		//	  NOTE. You can use the arrays you built in Lab 3, just make sure you keep track of your variable names
+
+		var button = document.getElementById("map-cities");
+
+		button.addEventListener("click", function () {
+
+
+			// var units = prompt('Enter the units for calculating population density', 'Enter "miles" or "km"');
+			// mapCities(units);
+
+
+			// call a function named mapCities, and send the units variable as an argument
+
+		}); // addEventListener callback function ends here
+
+		// Add event listener
+		button.addEventListener("click", function () {
+            
+			// Set some variables
+			var units = '',
+			i = 0
+
+			// Use break to control looping
+			while (true) {
+				units = prompt('Enter the units for calculating population density',
+					'Enter "miles" or "km"');
+				// Advance counter by 1
+				i++
+				// break if clicked cancel
+				if (units == null) {
+					break
+				// if input is either miles or km run the function
+				} else if (units == "miles" || units == "km") {
+					// call a function named mapCities,
+					// and send the units variable as an argument
+					// mapCities(units);
+					mapCities(units)
+					break
+				// at three incorrect submissions stop
+				} else if (i == 3) {
+					alert("You tried too many times!")
+					break
+				}
+			}
+		});
+
+
+		// write a function here named mapCities so that it accepts units as a parameter
+		function mapCities(units) {
+			for (var i = 0; i < cities.length; i++) {
+				console.log(cities[i]);
+				var population = cityPops[i];
+				var area = cityAreas[i];			// no idea how much I struggled to get this far haha
+				calcPopDensity(population, area, units);
+				var density = calcPopDensity(population, area, units);
+				var popup = `<h2>${cities[i]}</h2>
+                  <b>Population Density</b>: 
+				  ${density.toLocaleString('en-US',{maximumFractionDigits: 1})}
+				  people per ${units}<sup>2</sup>`;	// so simple, it hurts (that it took me so long to realize)
+				L.marker(cityCoords[i]).addTo(map)
+					.bindPopup(popup);
+				// console.log(density);
+
+			};
+
+		};
+		// write a function named calcPopDensity here so that it accepts a
+		// single city's population, area, and the value for units ('miles' or 'km')
+		// entered by the user within the prompt statement
+
+		function calcPopDensity(population, area, units) {
+			if (units === "miles") {
+				// console.log(population / area);
+				return population / area;
+			}
+			else {
+				// console.log(population / (area * 2.58999));
+				return population / (area * 2.58999);
+			}
+		};
+
+	</script>
+
+</body>
+
+</html>
+
+<script>
