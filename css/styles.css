@@ -13,9 +13,12 @@ a {
 }
 
 header {
+  
   padding: 154px 0 100px;
-  background: radial-gradient(circle, rgb(14, 162, 160), white);
+  background-size: cover;
+  background-image: url("../images/county-transparent.png"), radial-gradient(circle, rgb(14, 162, 160), white);
   background-color: #11ebd2;
+  position: relative;
 }
 
 /* media query when the media is wider than 992px */
