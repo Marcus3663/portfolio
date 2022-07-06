@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>NHS</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,800&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      background: #0f0f0f;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+    }
+
+    h1 {
+      font-weight: 800;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    h3 {
+      color: white;
+    }
+
+    a {
+      color: white;
+    }
+
+    p {
+      line-height: 1.7rem;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    #map {
+      height: 80vh;
+      background: white;
+    }
+
+    #legend {
+      font-size: 1rem;
+      border-radius: 5px;
+      max-width: 200px;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    #legend span {
+      width: 20px;
+      height: 20px;
+      float: left;
+      margin: 0 10px 4px 0;
+    }
+
+    #legend label {
+      font-size: 0.9rem;
+    }
+
+    #legend label:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .first-column {
+      float: left;
+      width: 49%;
+      padding-right: 2%;
+    }
+
+    .second-column {
+      float: left;
+      width: 49%;
+    }
+
+    /* Clear floats after columns */
+    .row::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    .img-fill {
+      width: 50%;
+      height: auto;
+      margin: 10px 0;
+    }
+
+    /* Small devices (landscape phones, 576px and up) */
+    @media (min-width: 576px) {}
+
+    /* Medium devices (tablets, 768px and up) */
+    @media (min-width: 768px) {
+
+      aside {
+        height: 80vh;
+      }
+    }
+
+    /* Large devices (desktops, 992px and up) */
+    @media (min-width: 992px) {}
+
+    /* Extra large devices (large desktops, 1200px and up) */
+    @media (min-width: 1200px) {}
+  </style>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <header class="row bg-primary text-warning py-3 text-center">
+      <div class="col">
+        <h1>Newport Historic Spring</h1>
+      </div>
+    </header>
+    <section class="row bg-primary text-warning">
+      <div class="col-md-8 col-lg-9 col-xl-10 order-md-2 px-0">
+        <div id="map"></div>
+      </div>
+      <aside id="about" class="col-md-4 col-lg-3 col-xl-2 order-md-1 text-primary py-2 pl-3 bg-warning overflow-auto">
+        <section>
+          <h3 class="py-2">Newport, Rhode Island</h3>
+          <p>The Newport Historic Spring used to be the main water source for Newport, Rhode Island. What started out as
+            a natural spring in which colonists as well as
+            indigenous individuals used, turned into a wellspring that became the central point of Newport. The well was
+            connected to houses through wooden pipes, which were eventually
+            replaced with metal pipes. Around the wellspring, houses were built, a stable was put in its place, and
+            eventually the spring was no longer used and even a gas station was built
+            upon it most recently. In an effort to preserve the its history, a nonprofit organization (Church Community
+            Housing Corporation) hired an archaeological team to analyze the site
+            before turning it into a public park in the future.</p>
+        </section>
+      </aside>
+    </section>
+
+    <section>
+      <div class="row bg-primary text-warning text-center">
+        <h1 class="py-2">What Was Found?</h1>
+        <p>Some of the artifacts include a number of porcelain sherds, clay smoking pipes, different colored glassware,
+          and
+          various faunal remains.</p>
+        <div class="first-column">
+          <img src="graphics/porce.jpg" alt="porcelain" class="img-fill">
+          <div class="caption">
+            A photo of a piece of porcelain that has a maker's mark. Historically, ceramics have a maker's mark that
+            leads to
+            a company or person who created the piece and tends to be a great source for dating.
+          </div>
+          <img src="graphics/glass.jpg" alt="glass" class="img-fill">
+          <div class="caption">
+            A photo of glass with lead covering. In colonial times, some glassware was wrapped in lead or tin and was
+            eventually changed due to people
+            understanding their toxic traits.
+          </div>
+        </div>
+
+        <div class="second-column">
+          <img src="graphics/pipe.jpg" alt="pipe" class="img-fill">
+          <div class="caption">
+            A photo of a clay smoking pipe stem dated from 1725-1780. By measuring the diameter of the opening of the
+            pipe stem, one can accurately date
+            the artifact due to the styles being changed very few decades.
+          </div>
+          <img src="graphics/bone.jpg" alt="faunal remains" class="img-fill">
+          <div class="caption">
+            A photo of faunal remains, pieced back together. Based on what faunal remains are found, archaeologists can
+            interpret what diets individuals had
+            in specific regions and time periods.
+          </div>
+        </div>
+    </section>
+
+    <footer class="row bg-warning text-primary py-3">
+      <div class="col">
+        <ul class="list-unstyled">
+          <li>Authored By: <a href="#">Marcus Rodriguez</a></li>
+          <li>Data Source: <a href="https://newportspring.org/">Newport Historic Spring</a></li>
+          <li>See my projects on GitHub: <a href="https://github.com/marcus3663">Marcus3663</a></li>
+          <li>Coordinate Data: <a href="https://studio.mapbox.com/">Mapbox Studio</a></li>
+          <li>Map Data: <a href="http://leafletjs.com/">Leaflet</a> </li>
+          <li>Map Created: June 30th, 2022</li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+  <!-- legend is outside of container-fluid and will be dynamically added to map -->
+  <div class="bg-primary py-2 px-3 ml-3 mt-3 text-warning" id="legend"></div>
+
+  <!-- ui is outside of container-fluid and will be dynamically added to map -->
+  <div class="form-group mr-3 mt-3" id="dropdown-ui">
+    <select class="form-control bg-primary text-warning">
+      <option value="porce" selected>Porcelain</option>
+      <option value="glass">Glassware </option>
+      <option value="pipes">Smoking Pipes</option>
+      <option value="bone">Faunal Remains</option>
+  </div>
+
+  <!-- Add Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+    crossorigin="anonymous"></script>
+  <!-- then Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <!-- then Simple Statistics -->
+  <script src='https://unpkg.com/simple-statistics@7.7.0/dist/simple-statistics.min.js'></script>
+  <script>
+    // initial Leaflet map options
+    const options = {
+      zoomSnap: 0.1,
+      center: [41.48985805109712, -71.31274972110987],
+      zoom: 20,
+      zoomControl: false,
+    };
+    // create Leaflet map and apply options
+    const map = L.map("map", options);
+    new L.control.zoom({ position: "bottomright" }).addTo(map);
+
+    // request a basemap tile layer and add to the map
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 20,
+    }).addTo(map);
+
+    // set global variables for map layer,
+    // mapped attribute, and normalizing attribute
+    let attributeValue = "porce";
+    const normValue = "Tporce";
+
+    // create object to hold legend titles
+    const labels = {
+      "porce": "Total porcelain found",
+      "glass": "Total glass found",
+      "pipes": "Total clay smoking pipes found",
+      "bone": "Total faunal remains found"
+    }
+
+    // fetch data from a remote source
+    fetch("data/nhs_final.geojson")
+      // after it is returned...
+      .then(function (response) {
+        // if has a property called ok, and it is true
+        if (response.ok) {
+          // The API call was successful!
+          // Parse the JSON into a useable format, then return it
+          return response.json();
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      })
+      // The returned response is now data in a new then method
+      .then(function (data) {
+        // This is the JSON from our response
+        // console.log parameters first.
+        console.log(data);
+        // call draw map and send data as parameter
+        drawMap(data);
+      });
+
+    function drawMap(data) {
+      // console.log(data); // data is now accessible here
+      // create Leaflet data layer and add to map
+      const grids = L.geoJson(data, {
+        // style grids with initial default path options
+        style: function (feature) {
+          return {
+            color: "#20282e",
+            weight: 2,
+            fillOpacity: 1,
+            fillColor: "#1f78b4",
+          };
+        },
+        // add hover/touch functionality to each feature layer
+        onEachFeature: function (feature, layer) {
+          // when mousing over a layer
+          layer.on("mouseover", function () {
+            // change the stroke color and bring that element to the front
+            layer
+              .setStyle({
+                color: "gold",
+              })
+              .bringToFront();
+          });
+
+          // on mousing off layer
+          layer.on("mouseout", function () {
+            // reset the layer style to its original stroke color
+            layer.setStyle({
+              color: "#20282e",
+            });
+          });
+        },
+      }).addTo(map);
+      // fit the map's bounds and zoom level using the grids extent
+      map.fitBounds(grids.getBounds(), {
+        padding: [18, 18], // add padding around grids
+      });
+      updateMap(grids); // draw the map
+      addUi(grids); // add the UI controls
+    }
+
+    function updateMap(grids) {
+      // you could log grids to console here to
+      // verify the Leaflet layers object is not accessible
+      // and scoped within this function
+      console.log(grids);
+
+      // get the class breaks for the current data attribute
+      const breaks = getClassBreaks(grids);
+
+      // loop through each county layer to update the color and tooltip info
+      grids.eachLayer(function (layer) {
+        const props = layer.feature.properties;
+
+        // set the fill color of layer based on its normalized data value
+        layer.setStyle({
+          fillColor: getColor(props[attributeValue] / props[normValue], breaks),
+        });
+
+        // assemble string sequence of info for tooltip (end line break with + operator)
+        let tooltipInfo = `<b>Grid ${props["NAME"]}</b></br>
+    ${props[attributeValue].toLocaleString()} Artifacts`;
+
+        // bind a tooltip to layer with county-specific information
+        layer.bindTooltip(tooltipInfo, {
+          // sticky property so tooltip follows the mouse
+          sticky: true,
+        });
+      });
+
+      // update the legend with the current data attribute information
+      addLegend(breaks);
+      updateLegend(breaks);
+    }
+
+    // Get class breaks in data
+    function getClassBreaks(grids) {
+      // create empty Array for storing values
+      const values = [];
+
+      // loop through all the grids
+      grids.eachLayer(function (layer) {
+        let value =
+          layer.feature.properties[attributeValue] /
+          layer.feature.properties[normValue];
+        values.push(value); // push the normalized value for each layer into the Array
+      });
+
+      // determine similar clusters
+      const clusters = ss.ckmeans(values, 5);
+
+      // create an array of the lowest value within each cluster
+      const breaks = clusters.map(function (cluster) {
+        return [cluster[0], cluster.pop()];
+      });
+
+      //return array of arrays, e.g., [[0.24,0.25], [0.26, 0.37], etc]
+      return breaks;
+    }
+
+    // Get color of county
+    function getColor(d, breaks) {
+      // function accepts a single normalized data attribute value
+      // and uses a series of conditional statements to determine which
+      // which color value to return to return to the function caller
+
+      if (d <= breaks[0][1]) {
+        return "#edf8fb";
+      } else if (d <= breaks[1][1]) {
+        return "#b3cde3";
+      } else if (d <= breaks[2][1]) {
+        return "#8c96c6";
+      } else if (d <= breaks[3][1]) {
+        return "#8856a7";
+      } else if (d <= breaks[4][1]) {
+        return "#810f7c";
+      }
+    }
+
+    // Add legend to map
+    function addLegend(breaks) {
+      // check your console to verify the breaks array
+      console.log(breaks);
+
+      // create a new Leaflet control object, and position it top left
+      const legendControl = L.control({ position: "topleft" });
+
+      // when the legend is added to the map
+      legendControl.onAdd = function () {
+        // select a div element with an id attribute of legend
+        const legend = L.DomUtil.get("legend");
+
+        // disable scroll and click/touch on map when on legend
+        L.DomEvent.disableScrollPropagation(legend);
+        L.DomEvent.disableClickPropagation(legend);
+
+        // return the selection to the method
+        return legend;
+      };
+
+      // add the empty legend div to the map
+      legendControl.addTo(map);
+
+
+    }
+    function updateLegend(breaks) {
+      // 		// select the legend, add a title, begin an unordered list and assign to a variable
+      const legend = document.querySelector("#legend")
+      legend.innerHTML = `<h5>${labels[attributeValue]}</h5>`;
+
+      // 		// loop through the Array of classification break values
+      for (let i = 0; i <= breaks.length - 1; i++) {
+        let color = getColor(breaks[i][0], breaks);
+
+        legend.innerHTML +=
+          `<div><span style="background:${color}"></span>
+			  <label>${(breaks[i][0] * 100).toLocaleString()} &mdash;
+			  ${(breaks[i][1] * 100).toLocaleString()}%</label></div>`
+      }
+    }
+
+
+    function addUi(grids) {
+      // create the slider control
+      var selectControl = L.control({ position: "topright" });
+      // L.DomUtil.get("dropdown-ui");
+      // when control is added
+      selectControl.onAdd = function () {
+        // get the element with id attribute of ui-controls
+        return L.DomUtil.get("dropdown-ui");
+      };
+      // add the control to the map
+      selectControl.addTo(map);
+
+      const dropdown = document.querySelector('#dropdown-ui select')
+      dropdown.addEventListener('change', function (e) {
+        // get the value of the selected option
+        attributeValue = e.target.value;
+
+        // update the map
+        updateMap(grids);
+      });
+    }
+  </script>
+</body>
+
+</html>
